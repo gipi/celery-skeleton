@@ -42,3 +42,14 @@ $ celery --app app worker --loglevel info
   . foo.tasks.task_a
   . foo.tasks.task_b
 ```
+
+## Tests
+
+```
+$ pytest -s -v tests.py -o log_cli=true --show-capture=all --log-level debug
+```
+
+## Notes
+
+Without pycurl (or other) ``celery`` can exit without error messages.
+

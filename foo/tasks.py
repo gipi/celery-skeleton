@@ -1,3 +1,6 @@
+"""
+Generic module to demonstrate simple patterns for celery tasks.
+"""
 from app import app
 from celery import Signature
 
@@ -21,6 +24,8 @@ def build_chain(arg1, arg2, on_success, on_failure):
 @app.task
 def big_task(on_success_name, on_failure_name, *args):
     """This task chains the other two with some orchestration work."""
+    # if you want to obtain also the traceback for the on_failure
+    # you need to not use an immutable signature
     on_success = Signature(on_success_name, args=args)
     on_failure = Signature(on_failure_name, args=args)
     chain = build_chain('hello', 'world', on_success, on_failure)
